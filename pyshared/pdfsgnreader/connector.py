@@ -23,7 +23,9 @@ class SgnPdfXMLConnector():
         if (self._xml_filepath is None or not os.path.isfile(self._xml_filepath)):
             raise SgnPdfXMLConnectorError('XML file must be attached to connector')
 
-        schema = lxml.etree.XMLSchema(file='sgnpdf.xsd')
+        schema = lxml.etree.XMLSchema(
+                        file=os.path.join(os.path.dirname(__file__), 'sgn.xsd')
+                        )
         xmltree = lxml.etree.parse(
                         self._xml_filepath,
                         lxml.etree.XMLParser(schema=schema)
