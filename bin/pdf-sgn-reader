@@ -25,7 +25,7 @@ try:
 except ImportError:
     import os
     pymodules_path = os.path.join(os.path.dirname(__file__),
-                                  '../pyshared/pdfsgnreader')
+                                  '../share/pyshared/pdfsgnreader')
     sys.path.append(pymodules_path)
 
 
