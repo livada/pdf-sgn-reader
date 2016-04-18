@@ -24,11 +24,11 @@ Installation
 
 Released linux binaries are available at launchpad PPA.
 
-ppa:bokundavor/pdf-sgn-reader.ppa
+ppa:bokundavor/tools
 
 To install the latest released version on Ubuntu or Debian execute:
 
-> sudo apt-add-repository ppa:bokundavor/livada.ppa
+> sudo apt-add-repository ppa:bokundavor/tools
 
 > sudo apt-get update
 
@@ -36,7 +36,7 @@ To install the latest released version on Ubuntu or Debian execute:
 
 For more info go to 
 
-https://launchpad.net/~bokundavor/+archive/ubuntu/livada.ppa
+https://launchpad.net/~bokundavor/+archive/ubuntu/tools
 
 
 Requirements
