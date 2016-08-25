@@ -28,6 +28,14 @@ except ImportError:
                                   '../share/pyshared/pdfsgnreader')
     sys.path.append(pymodules_path)
 
+    try:
+        import connector
+    except ImportError:
+        pymodules_path = os.path.join(os.path.dirname(__file__),
+                                      '../pyshared/pdfsgnreader')
+        sys.path.append(pymodules_path)
+
+
 
 import argparse
 from connector import SgnPdfXMLConnector
