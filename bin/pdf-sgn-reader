@@ -7,15 +7,17 @@ __author__ = "Davor Bokun"
 __copyright__ = "Copyright (C) 2016 Davor Bokun <bokundavor@gmail.com>"
 __credits__ = ["Davor Bokun"]
 __license__ = "GPL"
-__version__ = '0.1'
+__version__ = '0.2'
 __maintainer__ = "Davor Bokun"
 __email__ = "bokundavor@gmail.com"
 __status__ = "Alpha"
 
 
 import sys
+import argparse
 
-if __name__!='__main__':
+
+if __name__ != '__main__':
     # Do not allow importing as module
     sys.exit()
 
@@ -36,8 +38,6 @@ except ImportError:
         sys.path.append(pymodules_path)
 
 
-
-import argparse
 from connector import SgnPdfXMLConnector
 
 
@@ -48,7 +48,8 @@ parser.add_argument('input_file',
                     help='input .pdf.sgn file')
 parser.add_argument('-v', '--version', action='version', 
                     version='%(prog)s version ' + __version__)
-
+parser.add_argument('-r', '--reader', default='evince',
+                    help='specify custom pdf viewer executable (default: evince)')
 
 
 args = parser.parse_args()
@@ -60,7 +61,7 @@ xmlcnn.load()
 # TODO
 # xmlcnn.validate_sign()
 
-xmlcnn.open_pdf()
+xmlcnn.open_pdf(reader=args.reader)
 
 
 

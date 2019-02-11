@@ -2,25 +2,28 @@ import os.path
 import lxml.etree
 
 import base64
-import zlib
 from tempfile import NamedTemporaryFile
 from subprocess import call
 from zipfile import ZipFile
 
-class SgnPdfXMLConnectorError(Exception): pass
 
-class SgnPdfXMLConnector():
+class SgnPdfXMLConnectorError(Exception):
+    pass
+
+
+class SgnPdfXMLConnector:
     def __init__(self, xml_filepath=None):
         self._xml_filepath = xml_filepath
         
         self._pdf = None
-        self._signiture = None
+        self._signature = None
+        self._timestamp = None
 
     def load(self, xml_filepath=None):
         if xml_filepath is not None:
             self._xml_filepath = xml_filepath
 
-        if (self._xml_filepath is None or not os.path.isfile(self._xml_filepath)):
+        if self._xml_filepath is None or not os.path.isfile(self._xml_filepath):
             raise SgnPdfXMLConnectorError('XML file must be attached to connector')
 
         schema = lxml.etree.XMLSchema(
@@ -31,7 +34,7 @@ class SgnPdfXMLConnector():
                         lxml.etree.XMLParser(schema=schema)
                         )
         
-        if (not schema(xmltree)):
+        if not schema(xmltree):
             raise SgnPdfXMLConnectorError('%s is not a recognized signed pdf file' % self._xml_filepath)
         
         xmlupload = xmltree.getroot()
@@ -47,12 +50,11 @@ class SgnPdfXMLConnector():
             'data': xmlfile.text,
         }
 
-        self._signiture = {
+        self._signature = {
             'certificate': xmlsigner.findtext('Certificate').strip(),
             'sign': xmlsigner.findtext('Sign').strip(),
             'timestamp': xmlsigner.findtext('Time').strip(),
         }
-       
 
     def open_pdf(self, reader='evince'):
         if not self._pdf:
